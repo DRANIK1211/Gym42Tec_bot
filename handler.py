@@ -19,10 +19,20 @@ async def start(mes: Message):
                          f"Пожалуйста, выберете действие {emoji.emojize(':backhand_index_pointing_down:')}",
                          reply_markup=start_buttons)
     else:
+        otdel = sql.get_otdel_tec(mes.from_user.id)
+        match otdel:
+            case "User":
+                a = but_osn
+            case "IT":
+                a = but_osn_tec
+            case "Xoz":
+                a = but_osn_tec
+            case "Admin":
+                a = admin_but
         await mes.answer(f"С возвращением, это бот Гимназии №42 г. Барнаула,"
                          f" предназначенный для приёма заявок на ремонт оборудования\n"
                          f"Пожалуйста, выберете действие {emoji.emojize(':backhand_index_pointing_down:')}",
-                         reply_markup=but_osn)
+                         reply_markup=a)
 
 
 @router.callback_query(F.data == "reg_but")

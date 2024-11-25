@@ -59,9 +59,9 @@ def delete_application_user(num):
 
 
 def get_application(id):
-    a = cursor.execute(f"SELECT username FROM user WHERE {id}").fetchall()[0][0]
-    return cursor.execute(f"SELECT * FROM applications WHERE username = ? AND status = ?",
-                          (a, "Отправлена" or "Выполняется")).fetchall()
+    a = cursor.execute(f"SELECT username FROM user WHERE id = ?", (id,)).fetchall()[0][0]
+    return cursor.execute(f"SELECT * FROM applications WHERE username = ? AND status IN (?, ?)",
+                          (a, "Отправлена", "Выполняется")).fetchall()
 
 
 def get_otdel_tec(id):
@@ -71,7 +71,7 @@ def get_otdel_tec(id):
 def get_application_tec(otdel):
     #  Исправить просмотр заявок, выходили только "Отправлена", нужно добавить в вывод "Выполняется"
     mas = cursor.execute("SELECT * FROM applications WHERE department = ? AND status IN (?, ?)",
-                   (otdel, "Отправлена", "Выполняется")).fetchall()
+                        (otdel, "Отправлена", "Выполняется")).fetchall()
     return mas
 
 

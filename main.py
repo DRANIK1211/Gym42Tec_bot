@@ -76,9 +76,10 @@ async def select_application(cb: CallbackQuery):
     await cb.answer()
     num = int(str(cb.message.text).split(" ")[-1])-1
     sql.select(num)
+    mas = cb.message.text
     await cb.message.delete()
-    await cb.message.answer(f"Заявка под номером {num+1} выбрана", reply_markup=but_osn_tec)
-    # Найти заявку по id и вывести, добавить replay_markup = but_ok
+    await cb.message.answer(f"Заявка под номером {num+1} выбрана", reply_markup=None)
+    await cb.message.answer(mas, reply_markup=but_ok)
     id_user = sql.get_id(num)
     await bot.send_message(id_user, "Ваша заявка выполняется!", reply_markup=but_osn)
 
@@ -87,7 +88,7 @@ async def select_application(cb: CallbackQuery):
 async def delete_application_tec(cb: CallbackQuery):
     await cb.answer()
     num = int(str(cb.message.text).split(" ")[-1]) - 1
-    id_user = sql.get_id(num)
+    id_user = sql.get_id(num)[0][0]
     await bot.send_message(id_user, "Ваша заявка отменена!", reply_markup=but_osn)
 
     sql.delete_application_user(num)

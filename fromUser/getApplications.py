@@ -24,7 +24,7 @@ async def get_application(cb: CallbackQuery):
         else:
             a = "Хоз. отдел"
 
-        if mas[i][-1] == "Отправлено":
+        if mas[i][-1] == "Отправлена":
             b = delete_application
         else:
             b = None
