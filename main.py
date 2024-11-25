@@ -104,7 +104,7 @@ async def but_ok(cb: CallbackQuery):
 
     sql.ok_application(num)
     await cb.message.delete()
-    await cb.message.answer(f"Заявка под номером {num + 1} выполнена", reply_markup=but_osn_tec)
+    await cb.message.answer(f"Заявка под номером {num + 1} выполнена!", reply_markup=but_osn_tec)
 
 
 if __name__ == "__main__":
