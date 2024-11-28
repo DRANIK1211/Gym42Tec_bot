@@ -75,7 +75,10 @@ async def request_four(mes: Message, state: FSMContext):
 async def select_application(cb: CallbackQuery):
     await cb.answer()
     num = int(str(cb.message.text).split(" ")[-1])-1
-    sql.select(num)
+    a = sql.select(num)
+    if not a:
+        await cb.message.answer("Заявка была отменена")
+        return
     mas = cb.message.text
     await cb.message.delete()
     await cb.message.answer(f"Заявка под номером {num+1} выбрана", reply_markup=None)

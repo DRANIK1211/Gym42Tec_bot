@@ -76,8 +76,12 @@ def get_application_tec(otdel):
 
 
 def select(num):
+    a = cursor.execute("SELECT * FROM applications WHERE id = ?", (num,))
+    if not a:
+        return False
     cursor.execute("UPDATE applications SET status = ? WHERE id = ?", ("Выполняется", num))
     con.commit()
+    return True
 
 
 def ok_application(num):
