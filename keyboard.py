@@ -29,7 +29,7 @@ but_tec = InlineKeyboardMarkup(
 )
 
 
-but_ok = InlineKeyboardMarkup(
+but_okk = InlineKeyboardMarkup(
     inline_keyboard=[
         [InlineKeyboardButton(text="Заявка выполнена", callback_data="but_ok")]
     ]

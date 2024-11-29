@@ -76,15 +76,24 @@ async def select_application(cb: CallbackQuery):
     await cb.answer()
     num = int(str(cb.message.text).split(" ")[-1])-1
     a = sql.select(num)
-    if not a:
-        await cb.message.answer("Заявка была отменена")
+    if a == False:
+        await cb.message.answer("Заявка была отменена пользователем или выбрана другим специалистом")
+        await cb.message.delete()
         return
-    mas = cb.message.text
-    await cb.message.delete()
-    await cb.message.answer(f"Заявка под номером {num+1} выбрана", reply_markup=None)
-    await cb.message.answer(mas, reply_markup=but_ok)
     id_user = sql.get_id(num)
-    await bot.send_message(id_user, "Ваша заявка выполняется!", reply_markup=but_osn)
+    await bot.send_message(id_user[0][0], "Ваша заявка выполняется!", reply_markup=but_osn)
+    await cb.message.answer(f"Заявка под номером {num+1} выбрана", reply_markup=None)
+    txt = sql.get_one_application(num)
+    await cb.message.answer(
+        f"ФИО - {txt[0][1].replace('_', ' ')}\n"
+        f"Кабинет - {txt[0][2]}\n"
+        f"Описание проблемы:\n{txt[0][3]}\n"
+        f"Дата - {txt[0][5]}\n"
+        f"Статус - {txt[0][6]}\n"
+        f"Номер заявки - {txt[0][0] + 1}",
+        reply_markup=but_okk
+    )
+    await cb.message.delete()
 
 
 @dp.callback_query(F.data == "delete_application_tec")

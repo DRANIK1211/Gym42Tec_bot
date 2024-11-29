@@ -20,9 +20,9 @@ async def get_applications_tec(cb: CallbackQuery):
         if mas[i][-1] == "Отправлена":
             a = but_tec
         if mas[i][-1] == "Выполняется":
-            a = but_ok
+            a = but_okk
         await cb.message.answer(
-            f"ФИО - {mas[i][1]}\n"
+            f"ФИО - {mas[i][1].replace('_', ' ')}\n"
             f"Номер кабинета - {mas[i][2]}\n"
             f"Описание:\n{mas[i][3]}\n"
             f"Время отправки - {mas[i][5]}\n"

@@ -75,9 +75,13 @@ def get_application_tec(otdel):
     return mas
 
 
+def get_one_application(id):
+    return cursor.execute("SELECT * FROM applications WHERE id = ?", (id,)).fetchall()
+
+
 def select(num):
-    a = cursor.execute("SELECT * FROM applications WHERE id = ?", (num,))
-    if not a:
+    a = cursor.execute("SELECT * FROM applications WHERE id = ? AND status = ?", (num, "Отправлена")).fetchall()
+    if a == []:
         return False
     cursor.execute("UPDATE applications SET status = ? WHERE id = ?", ("Выполняется", num))
     con.commit()

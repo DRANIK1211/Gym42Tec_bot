@@ -23,11 +23,7 @@ async def get_application(cb: CallbackQuery):
             a = "IT - отдел"
         else:
             a = "Хоз. отдел"
-
-        if mas[i][-1] == "Отправлена":
-            b = delete_application
-        else:
-            b = None
+        b = delete_application
         await cb.message.answer(
             f"Заявка в {a}\n"
             f"ФИО - {mas[i][1].replace('_', ' ')}\n"
