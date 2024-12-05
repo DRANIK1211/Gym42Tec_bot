@@ -65,7 +65,7 @@ def get_application(id):
 
 
 def get_otdel_tec(id):
-    return cursor.execute(f"SELECT role FROM user WHERE {id}").fetchall()
+    return cursor.execute(f"SELECT role FROM user WHERE id = ?", (id,)).fetchall()
 
 
 def get_application_tec(otdel):

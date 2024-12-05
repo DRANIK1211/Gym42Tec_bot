@@ -13,13 +13,15 @@ router = Router()
 
 @router.message(CommandStart())
 async def start(mes: Message):
-    if not sql.search(mes.from_user.id):
+    print(sql.search(mes.from_user.id) == [])
+    if sql.search(mes.from_user.id) == []:
         await mes.answer(f"Здравствуйте, это бот Гимназии №42 г. Барнаула,"
                          f" предназначенный для приёма заявок на ремонт оборудования\n"
                          f"Пожалуйста, выберете действие {emoji.emojize(':backhand_index_pointing_down:')}",
                          reply_markup=start_buttons)
     else:
-        otdel = sql.get_otdel_tec(mes.from_user.id)
+        otdel = sql.get_otdel_tec(mes.from_user.id)[0][0]
+        print(otdel)
         match otdel:
             case "User":
                 a = but_osn
